@@ -20,6 +20,13 @@ This module and the OTP online payment service are not same. You have to contact
 * Working Cron.
 * OTP licence (only for production version).
 
+## Install
+
+Using Magento in DEV mode without cache is definitely recommended when you want to install module.
+
+* Get the source, for example you can use Composer: ```composer require youama/module-otp-2```
+* Setup: ```php bin/magento setup:upgrade```
+
 ## Payment system process
 1. The customer places an order on the Checkout of the webshop.
 2. The module computes the order and sends it to the OTP payment system.
