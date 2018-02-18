@@ -1,7 +1,10 @@
 # OTP Bank Payment Method Module to Magento 2
 
+<p align="center">
 <img src="http://youama.hu/frontend/image/product-otp-2.jpg" />
+</p>
 
+[![Latest Stable Version](https://poser.pugx.org/youama/module-otp-2/v/stable.svg)](https://packagist.org/packages/youama/module-otp-2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 >This source code is a Magento module what provides a Payment itengration between Magento 2 ecommerce platform and OTP Bank Direct. The module creates a new Payment method "OTP" and allow to pay orders through OTP Bank. The source code is **under The MIT licence from 2018.02.18**.
@@ -29,49 +32,66 @@ This module and the OTP online payment service are not same. You have to contact
 ## Settings
 
 **Setup page**
+
 You can find the configuration place on System -> Configuration -> Sales -> Payment methods -> Youama OTP.
 
 **Enabled**
+
 You can disable or enable the whole payment method in website scope.
 
 **Private key**
+
 You can add your own private key file in website scope - given by OTP Bank.
 
 **POS ID**
+
 This is the ID of the shop in website scope - given by OTP Bank.
 
 **Currency**
+
 Hungarian Forint, USD or Euro. Currency code, defined by OTP bank. This is the order currency. (Website scope.)
 
 **Language**
+
 The language of OTP payment user interface. (Website scope.)
 
 **Shop Comment**
+
 A short title or description on payment user interface of OTP. (Store view.)
 
 **Title**
+
 Title of OTP payment in Checkout of Magento. (Store view.)
 
 **Success url**
+
 When customer payment was successful, he arrives to this page. (Store view.)
 
 **Fail url**
+
 When customer payment was failed, he arrives to this page. It should be a CMS page. (Store view.)
 
 **Cancel order**
+
 When customer's order has failed payment, the module changes the status or the state of the order. It can cancels order by automatically or only notifies the user. (Website scope.)
 
 **Paid message**
+
 Customer gets notify by automatically when his order has been paid status. This notify contains a short HTML message. (Store view.)
 
 **Unpaid message**
+
 Customer gets notify by automatically when his order have been unpaid status. This notify contains a short HTML message. (Store view.)
 
 ## OTP Payment UI
 
+<p align="center">
 <img src="http://youama.hu/media/otp5.jpg" />
+</p>
 
+<p align="center">
 <img src="http://youama.hu/media/otp1.jpg" />
+</p>
 
 ## Testing
 
@@ -110,5 +130,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 * 2015 publish on Magento Connect under unique licence.
 * 2014 beta to Magento 1.
 
-
+<p align="center">
 <img src="http://youama.hu/frontend/image/logo_black.png" />
+</p>
