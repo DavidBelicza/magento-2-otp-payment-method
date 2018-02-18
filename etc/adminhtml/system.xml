@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+
+    <system>
+        <section id="payment">
+            <group id="youama_otp" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label><![CDATA[Youama OTP Direct&nbsp;&nbsp;<img src="http://www.youama.com/robot/meta.jpg" height="30" style="margin-bottom:-12px;" />]]></label>
+                <comment><![CDATA[This payment solution is to OTP Direct Payment service.<br /><br /><ul style="margin-left:50px;"><li><strong>Card number:</strong> 4908 3660 9990 0425</li><li><strong>Expires:</strong> 2014. 10.</li><li><strong>Cvc2 code:</strong> 823</li></ul>More information on <a href="http://youama.hu/otp-fizetesi-modul-magento-webaruhazra" target="_blank">Youama.hu</a>]]></comment>
+
+                <field id="transaction_id_prefix" translate="label" type="label" sortOrder="-2" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Module Installation ID</label>
+                    <comment>This code generated when you installed the module. This code used to a lot of things to identify transactions inside Magento to OTP.</comment>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                <field id="pos_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>POS ID</label>
+                    <comment>POS ID from OTP. Demo is: #02299991</comment>
+                </field>
+                <field id="private_key_path" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Private Key Path</label>
+                    <comment>Private key from OTP. To use demo version leave this field empty. To use live version
+                        upload the private key to a secure place inside Magento and enter the path of the key, for
+                        example: lib/myPrivateKey.pem
+                    </comment>
+                </field>
+                <field id="order_cancel_is_allowed" translate="label" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Allow Cancel Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When Payment fail order will be canceled automatically.</comment>
+                </field>
+                <field id="can_edit" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Can edit Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Order can be edited</comment>
+                </field>
+                <field id="checkout_success_url" translate="label" type="text" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Success URL</label>
+                    <comment>Customer will see this page after success payment.</comment>
+                </field>
+                <field id="checkout_fail_url" translate="label" type="text" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Fail URL</label>
+                    <comment>Customer will see this page after fail payment.</comment>
+                </field>
+                <field id="paid_message" translate="label" type="textarea" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Paid Message</label>
+                    <comment>Paid message about transaction. The authorization code is in the OTP_TR_ID variable. For
+                        example: Your OTP code is: OTP_TR_ID.
+                    </comment>
+                </field>
+                <field id="unpaid_message" translate="label" type="textarea" sortOrder="100" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Unpaid Message</label>
+                    <comment>Unpaid message about transaction.</comment>
+                </field>
+                <field id="shop_comment" translate="label" type="text" sortOrder="110" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Shop Comment</label>
+                    <comment>Short text about the webshop or order on the OTP payment user interface.</comment>
+                </field>
+                <field id="language_code" translate="label" type="select" sortOrder="120" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Language Code</label>
+                    <source_model>Youama\OTP\Model\Source\LanguageCode</source_model>
+                    <comment>This language will be used in OTP payment user interface</comment>
+                </field>
+                <field id="currency_code" translate="label" type="select" sortOrder="130" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Currency Code</label>
+                    <source_model>Youama\OTP\Model\Source\CurrencyCode</source_model>
+                    <comment>This currency will be used in OTP payment user interface</comment>
+                </field>
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="140" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Payment from Applicable Countries</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="150" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Payment from Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+                <field id="min_order_total" translate="label" type="text" sortOrder="160" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Minimum Order Total</label>
+                </field>
+                <field id="max_order_total" translate="label" type="text" sortOrder="170" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Maximum Order Total</label>
+                    <comment>Leave empty to disable limit.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+
+</config>

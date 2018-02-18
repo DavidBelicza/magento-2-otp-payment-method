@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+
+    <default>
+        <payment>
+            <youama_otp>
+                <title>OTP</title>
+                <active>1</active>
+                <model>Youama\OTP\Model\Payment</model>
+                <payment_action>authorize_capture</payment_action>
+                <allowspecific>0</allowspecific>
+                <min_order_total>1</min_order_total>
+                <can_edit>1</can_edit>
+                <can_use_internal>0</can_use_internal>
+                <can_use_checkout>1</can_use_checkout>
+                <is_gateway>1</is_gateway>
+                <is_offline>0</is_offline>
+                <can_initialize>0</can_initialize>
+
+                <request_payment>youama_otp/handler/payment</request_payment>
+                <request_send_order>youama_otp/handler/sendorder</request_send_order>
+                <response_callback>youama_otp/handler/otpcallback</response_callback>
+
+                <checkout_success_url>checkout/onepage/success/</checkout_success_url>
+                <checkout_fail_url>checkout/onepage/success/</checkout_fail_url>
+
+                <payment_interface>https://www.otpbankdirekt.hu/mwaccesspublic/mwaccess?WSDL</payment_interface>
+                <payment_user_interface>https://www.otpbankdirekt.hu/webshop/do/webShopVasarlasInditas</payment_user_interface>
+
+                <pos_id>#02299991</pos_id>
+                <client_code>WEBSHOP</client_code>
+                <private_key_path></private_key_path>
+
+                <order_cancel_is_allowed>1</order_cancel_is_allowed>
+                <paid_message>Your order has been paid. Your Authorization Code is: OTP_TR_ID</paid_message>
+                <unpaid_message>Your order has been canceled because of unpaid products.</unpaid_message>
+                <currency_code>HUF</currency_code>
+                <language_code>hu</language_code>
+                <transaction_id_prefix>21117891</transaction_id_prefix>
+                <shop_comment>Payment from Magento - change this text on Magento admin</shop_comment>
+            </youama_otp>
+        </payment>
+    </default>
+
+</config>

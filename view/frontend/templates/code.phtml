@@ -1,0 +1,20 @@
+<?php
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+?>
+<?php /** @var $block \Youama\OTP\Block\AuthorizationCode */ ?>
+<?php $code = $block->getAuthorizationCode() ?>
+<?php $isYouamaOtpPaymentMethod = $block->isYouamaOtpPaymentMethod() ?>
+
+<?php if ($code && $isYouamaOtpPaymentMethod): ?>
+    <div class="otp-success">
+        <br />
+        <p>
+            <?php echo __('Your Payment authorization code is: <strong>%1</strong>', $code); ?>
+        </p>
+    </div>
+<?php endif; ?>

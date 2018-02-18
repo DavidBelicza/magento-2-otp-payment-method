@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Youama\OTP\Api\OrderFinderInterface" type="Youama\OTP\Model\OrderFinder"/>
+    <preference for="Youama\OTP\Api\TransactionRepositoryInterface" type="Youama\OTP\Model\TransactionRepository"/>
+    <preference for="Youama\OTP\Api\TransactionFinderInterface" type="Youama\OTP\Model\TransactionFinder"/>
+    <preference for="Youama\OTP\Api\Data\TransactionInterface" type="Youama\OTP\Model\Transaction"/>
+
+    <preference for="Magento\Payment\Gateway\Config\ValueHandlerPoolInterface"
+                type="Youama\OTP\Gateway\Config\OTPValueHandlerPool"/>
+
+    <virtualType name="YouamaOTPConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Youama\OTP\Helper\Config::METHOD_CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="YouamaOTPConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">YouamaOTPConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Youama\OTP\Gateway\Config\OTPValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">YouamaOTPConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Youama\OTP\Model\Payment">
+        <arguments>
+            <argument name="code" xsi:type="const">Youama\OTP\Helper\Config::METHOD_CODE</argument>
+            <argument name="valueHandlerPool" xsi:type="object">Youama\OTP\Gateway\Config\OTPValueHandlerPool</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form\Cc</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\ConfigurableInfo</argument>
+        </arguments>
+    </type>
+
+</config>

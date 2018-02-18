@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+
+    <router id="standard">
+        <route id="youama_otp" frontName="youama_otp">
+            <module name="Youama_OTP" />
+        </route>
+    </router>
+
+</config>

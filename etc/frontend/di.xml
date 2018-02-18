@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="YouamaOTPConfigProvider" type="Youama\OTP\Model\PaymentConfigProvider">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="method_code" xsi:type="string">youama_otp</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="youamOTPProvider" xsi:type="object">YouamaOTPConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

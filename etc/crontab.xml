@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+
+    <group id="youama_otp">
+        <job name="payment_validator" instance="Youama\OTP\Cron\PaymentValidator" method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+
+</config>

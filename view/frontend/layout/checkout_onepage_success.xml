@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Youama\OTP\Block\AuthorizationCode"
+                   name="youama.otp.code"
+                   template="Youama_OTP::code.phtml"
+                   after="checkout.success"
+                   cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

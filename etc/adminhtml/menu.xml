@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Youama_OTP
+ *
+ * @author  David Belicza <87.bdavid@gmail.com>
+ * @license David Belicza e.v. (http://youama.hu)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+
+    <menu>
+        <add id="Youama_OTP::otp"
+             title="Youama OTP Payment"
+             module="Youama_OTP"
+             sortOrder="-1"
+             resource="Youama_OTP::otp"
+             parent="Magento_Backend::stores" />
+
+        <add id="Youama_OTP::otp_settings"
+             title="Payment Settings"
+             module="Youama_OTP"
+             sortOrder="1"
+             resource="Youama_OTP::otp"
+             parent="Youama_OTP::otp"
+             action="adminhtml/system_config/edit/section/payment/" />
+    </menu>
+
+</config>
