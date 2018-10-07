@@ -87,6 +87,12 @@
                     <label>Shop Comment</label>
                     <comment>Short text about the webshop or order on the OTP payment user interface.</comment>
                 </field>
+                <field id="frontend_comment" translate="label" type="textarea" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Storefront Comment</label>
+                    <comment>Information to display about the payment method before redirect.
+                    </comment>
+                </field>
                 <field id="language_code" translate="label" type="select" sortOrder="120" showInDefault="1"
                        showInWebsite="1" showInStore="0">
                     <label>Language Code</label>
