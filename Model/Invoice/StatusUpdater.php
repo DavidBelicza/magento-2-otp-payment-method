@@ -23,7 +23,7 @@ use Youama\OTP\Helper\Config;
 /**
  * Class StatusUpdater
  *
- * This class manage to create an invocice for the order if all the items are virtual and the auto-invoicing option is
+ * This class manage to create an invoice for the order if all the items are virtual and the auto-invoicing option is
  * enabled in the admin
  * History and Comment changes.
  *
