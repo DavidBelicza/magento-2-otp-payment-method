@@ -60,6 +60,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Order can be edited</comment>
                 </field>
+                <field id="can_auto_invoice_virtual" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Auto Invoice Virtual Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Automatically create an invoice if the order contains only virtual items and the payment was successful.</comment>
+                </field>
                 <field id="checkout_success_url" translate="label" type="text" sortOrder="70" showInDefault="1"
                        showInWebsite="1" showInStore="0">
                     <label>Success URL</label>
@@ -123,11 +128,6 @@
                        showInWebsite="1" showInStore="0">
                     <label>Maximum Order Total</label>
                     <comment>Leave empty to disable limit.</comment>
-                </field>
-                <field id="can_auto_invoice_virtual" translate="label" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Auto Invoice Virtual Order</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Automatically create an invoice if the order contains only virtual items and the payment was successful.</comment>
                 </field>
             </group>
         </section>
