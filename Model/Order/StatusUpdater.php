@@ -12,13 +12,14 @@ namespace Youama\OTP\Model\Order;
 
 use Magento\Sales\Api\Data\OrderStatusHistoryInterfaceFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use Magento\Sales\Api\InvoiceRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Email\Sender\OrderCommentSender;
-use Magento\Sales\Model\Order\Email\Sender\InvoiceSender;
 use Magento\Sales\Model\Order\Status\History;
+use Magento\Framework\DB\Transaction;
 use Youama\OTP\Api\OrderFinderInterface;
 use Youama\OTP\Helper\Config;
+use Youama\OTP\Model\Invoice\StatusUpdater as InvoiceStatusUpdater;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Class Status
@@ -59,19 +60,16 @@ class StatusUpdater
      * @var Config
      */
     private $configHelper;
-    /**
-     * @var \Magento\Sales\Model\Service\InvoiceService
-     */
-    protected $invoiceService;
 
     /**
-     * @var \Magento\Framework\DB\Transaction
+     * @var Transaction
      */
     protected $transaction;
 
-    protected $invoiceSender;
-
-    protected $invoiceRepository;
+    /**
+     * @var InvoiceStatusUpdater
+     */
+    protected $invoiceStatusUpdater;
 
     /**
      * StatusUpdater constructor.
@@ -80,8 +78,8 @@ class StatusUpdater
      * @param OrderStatusHistoryInterfaceFactory $orderStatusHistoryInterfaceFactory
      * @param OrderCommentSender $orderCommentSender
      * @param Config $configHelper
-     * @param \Magento\Sales\Model\Service\InvoiceService $invoiceService
-     * @param \Magento\Framework\DB\Transaction $transaction
+     * @param Transaction $transaction
+     * @param InvoiceStatusUpdater $invoiceStatusUpdater
      */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
@@ -89,20 +87,16 @@ class StatusUpdater
         OrderStatusHistoryInterfaceFactory $orderStatusHistoryInterfaceFactory,
         OrderCommentSender $orderCommentSender,
         Config $configHelper,
-        \Magento\Sales\Model\Service\InvoiceService $invoiceService,
-        \Magento\Framework\DB\Transaction $transaction,
-        InvoiceSender $invoiceSender,
-        InvoiceRepositoryInterface $invoiceRepository
+        Transaction $transaction,
+        InvoiceStatusUpdater $invoiceStatusUpdater
     ) {
         $this->orderRepository = $orderRepository;
         $this->orderFinder = $orderFinder;
         $this->orderStatusHistoryInterfaceFactory = $orderStatusHistoryInterfaceFactory;
         $this->orderCommentSender = $orderCommentSender;
         $this->configHelper = $configHelper;
-        $this->invoiceService = $invoiceService;
         $this->transaction = $transaction;
-        $this->invoiceSender = $invoiceSender;
-        $this->invoiceRepository = $invoiceRepository;
+        $this->invoiceStatusUpdater = $invoiceStatusUpdater;
     }
 
     /**
@@ -121,42 +115,9 @@ class StatusUpdater
     }
 
     /**
-     * @param Order $order
-     */
-    private function createInvoice(Order $order)
-    {
-        if ($order->canInvoice()) {
-            $invoice = $this->invoiceService->prepareInvoice($order);
-            $invoice->register();
-            $invoice->setState(Order\Invoice::STATE_PAID);
-            $this->invoiceRepository->save($invoice);
-            $transactionSave = $this->transaction->addObject(
-                $invoice
-            )->addObject(
-                $invoice->getOrder()
-            );
-            $transactionSave->save();
-            $this->invoiceSender->send($invoice);
-            //send notification code
-            /** @var OrderRepositoryInterface|History $history */
-            $history = $this->orderStatusHistoryInterfaceFactory->create();
-
-            $history->setComment(__('Notified customer about invoice #%1.', $invoice->getId()));
-            $history->setIsVisibleOnFront(0);
-            $history->setIsCustomerNotified(1);
-            $history->setStatus(Order::STATE_COMPLETE);
-
-            $order->addStatusHistory($history);
-            $order->setStatus(Order::STATE_COMPLETE);
-            $this->orderRepository->save($order);
-        }
-    }
-
-    /**
-     * Put order to processing, notify customer about it.
-     *
      * @param string $orderIncrementId
      * @param int $transactionId
+     * @throws LocalizedException
      */
     public function success(string $orderIncrementId, int $transactionId)
     {
@@ -182,11 +143,7 @@ class StatusUpdater
             $this->orderRepository->save($order);
             $this->orderCommentSender->send($order, true, $comment);
 
-
-            /** Create Invoice if order was virtual */
-            if ($order->getIsVirtual()) {
-                $this->createInvoice($order);
-            }
+            $this->invoiceStatusUpdater->createInvoice($order);
         }
     }
 
