@@ -67,7 +67,7 @@ class Config extends AbstractHelper
     /**
      * @return string
      */
-    public function getFrontendComment()
+    public function getFrontendComment(): string
     {
         return nl2br($this->getValue(ConfigInterface::FRONTEND_COMMENT));
     }
