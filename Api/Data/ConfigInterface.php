@@ -45,4 +45,5 @@ interface ConfigInterface
     const LANGUAGE_CODE           = 'language_code';
     const TRANSACTION_ID_PREFIX   = 'transaction_id_prefix';
     const SHOP_COMMENT            = 'shop_comment';
+    const FRONTEND_COMMENT        = 'frontend_comment';
 }
