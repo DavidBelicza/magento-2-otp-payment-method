@@ -2,7 +2,7 @@
 /**
  * Youama_OTP
  *
- * @author  David Belicza <87.bdavid@gmail.com>
+ * @author  Dominik Nsosso <dominik.nsosso@gmail.com>
  * @license David Belicza e.v. (http://youama.hu)
  */
 
