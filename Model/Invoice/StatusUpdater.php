@@ -49,7 +49,7 @@ class StatusUpdater
     /**
      * @var InvoiceService
      */
-    protected $invoiceService;
+    private $invoiceService;
 
     /**
      * @var Transaction

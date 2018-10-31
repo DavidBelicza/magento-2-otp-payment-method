@@ -69,7 +69,7 @@ class StatusUpdater
     /**
      * @var InvoiceStatusUpdater
      */
-    protected $invoiceStatusUpdater;
+    private $invoiceStatusUpdater;
 
     /**
      * StatusUpdater constructor.
