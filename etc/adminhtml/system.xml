@@ -99,7 +99,7 @@
                     </comment>
                 </field>
                 <field id="language_code" translate="label" type="select" sortOrder="120" showInDefault="1"
-                       showInWebsite="1" showInStore="0">
+                       showInWebsite="1" showInStore="1">
                     <label>Language Code</label>
                     <source_model>Youama\OTP\Model\Source\LanguageCode</source_model>
                     <comment>This language will be used in OTP payment user interface</comment>
