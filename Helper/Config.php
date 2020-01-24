@@ -65,6 +65,14 @@ class Config extends AbstractHelper
     }
 
     /**
+     * @return string
+     */
+    public function getFrontendComment(): string
+    {
+        return nl2br($this->getValue(ConfigInterface::FRONTEND_COMMENT));
+    }
+
+    /**
      * It retrieves the Payment's method code.
      *
      * @return string
@@ -317,7 +325,7 @@ class Config extends AbstractHelper
 
         if (strlen(trim($privateKeyPath)) <= 0) {
             $privateKeyPath = $this->componentRegistrar
-                ->getPath(ComponentRegistrar::MODULE, 'Youama_OTP')
+                    ->getPath(ComponentRegistrar::MODULE, 'Youama_OTP')
                 . DIRECTORY_SEPARATOR . 'key'
                 . DIRECTORY_SEPARATOR . 'demoPrivateKey.pem';
         } else {

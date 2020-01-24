@@ -1,17 +1,26 @@
 {
-    "name": "youama/module-otp-2",
-    "description": "OTP Payment integration for Magento 2",
-    "type": "magento2-module",
-    "version": "1.0.5",
-    "license": [
-        "proprietary"
-    ],
-    "autoload": {
-        "files": [
-            "registration.php"
-        ],
-        "psr-4": {
-            "Youama\\OTP\\": ""
-        }
+  "name": "youama/module-otp-2",
+  "description": "OTP Payment integration for Magento 2",
+  "type": "magento2-module",
+  "version": "1.1.0",
+  "license": [
+    "proprietary"
+  ],
+  "repositories": {
+    "0": {
+      "type": "composer",
+      "url": "https://repo.magento.com/"
     }
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Youama\\OTP\\": ""
+    }
+  },
+  "require": {
+    "magento/module-sales": "*"
+  }
 }

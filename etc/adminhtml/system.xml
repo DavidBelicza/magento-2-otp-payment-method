@@ -60,6 +60,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Order can be edited</comment>
                 </field>
+                <field id="can_auto_invoice_virtual" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Auto Invoice Virtual Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Automatically create an invoice if the order contains only virtual items and the payment was successful.</comment>
+                </field>
                 <field id="checkout_success_url" translate="label" type="text" sortOrder="70" showInDefault="1"
                        showInWebsite="1" showInStore="0">
                     <label>Success URL</label>
@@ -87,8 +92,14 @@
                     <label>Shop Comment</label>
                     <comment>Short text about the webshop or order on the OTP payment user interface.</comment>
                 </field>
+                <field id="frontend_comment" translate="label" type="textarea" sortOrder="90" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Storefront Comment</label>
+                    <comment>Information to display about the payment method before redirect.
+                    </comment>
+                </field>
                 <field id="language_code" translate="label" type="select" sortOrder="120" showInDefault="1"
-                       showInWebsite="1" showInStore="0">
+                       showInWebsite="1" showInStore="1">
                     <label>Language Code</label>
                     <source_model>Youama\OTP\Model\Source\LanguageCode</source_model>
                     <comment>This language will be used in OTP payment user interface</comment>

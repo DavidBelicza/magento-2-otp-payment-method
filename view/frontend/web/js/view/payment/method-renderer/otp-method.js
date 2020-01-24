@@ -52,6 +52,14 @@ define(
             },
 
             /**
+             *
+             * @returns {*}
+             */
+            getFrontendComment: function() {
+                return config['frontend_comment'];
+            },
+
+            /**
              * @param data
              * @param event
              * @returns {boolean}

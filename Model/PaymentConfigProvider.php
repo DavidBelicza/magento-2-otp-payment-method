@@ -56,7 +56,8 @@ class PaymentConfigProvider implements ConfigProviderInterface
             $this->methodCode => [
                 'is_active'    => $this->configHelper->isActive(),
                 'is_available' => true,
-                'request_url'  => $this->configHelper->getRequestUrl()
+                'request_url'  => $this->configHelper->getRequestUrl(),
+                'frontend_comment' => $this->configHelper->getFrontendComment()
             ],
         ]];
     }

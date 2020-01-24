@@ -3,6 +3,7 @@
  * Youama_OTP
  *
  * @author  David Belicza <87.bdavid@gmail.com>
+ * @author  Dominik Nsosso <dominik.nsosso@gmail.com>
  * @license David Belicza e.v. (http://youama.hu)
  */
 
@@ -15,8 +16,11 @@ use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Email\Sender\OrderCommentSender;
 use Magento\Sales\Model\Order\Status\History;
+use Magento\Framework\DB\Transaction;
 use Youama\OTP\Api\OrderFinderInterface;
 use Youama\OTP\Helper\Config;
+use Youama\OTP\Model\Invoice\StatusUpdater as InvoiceStatusUpdater;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Class Status
@@ -59,26 +63,41 @@ class StatusUpdater
     private $configHelper;
 
     /**
-     * Status constructor.
-     *
-     * @param OrderRepositoryInterface           $orderRepository
-     * @param OrderFinderInterface               $orderFinder
+     * @var Transaction
+     */
+    protected $transaction;
+
+    /**
+     * @var InvoiceStatusUpdater
+     */
+    private $invoiceStatusUpdater;
+
+    /**
+     * StatusUpdater constructor.
+     * @param OrderRepositoryInterface $orderRepository
+     * @param OrderFinderInterface $orderFinder
      * @param OrderStatusHistoryInterfaceFactory $orderStatusHistoryInterfaceFactory
-     * @param OrderCommentSender                 $orderCommentSender
-     * @param Config                             $configHelper
+     * @param OrderCommentSender $orderCommentSender
+     * @param Config $configHelper
+     * @param Transaction $transaction
+     * @param InvoiceStatusUpdater $invoiceStatusUpdater
      */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         OrderFinderInterface $orderFinder,
         OrderStatusHistoryInterfaceFactory $orderStatusHistoryInterfaceFactory,
         OrderCommentSender $orderCommentSender,
-        Config $configHelper
+        Config $configHelper,
+        Transaction $transaction,
+        InvoiceStatusUpdater $invoiceStatusUpdater
     ) {
         $this->orderRepository = $orderRepository;
         $this->orderFinder = $orderFinder;
         $this->orderStatusHistoryInterfaceFactory = $orderStatusHistoryInterfaceFactory;
         $this->orderCommentSender = $orderCommentSender;
         $this->configHelper = $configHelper;
+        $this->transaction = $transaction;
+        $this->invoiceStatusUpdater = $invoiceStatusUpdater;
     }
 
     /**
@@ -97,15 +116,13 @@ class StatusUpdater
     }
 
     /**
-     * Put order to processing, notify customer about it.
-     *
      * @param string $orderIncrementId
-     * @param int    $transactionId
+     * @param int $transactionId
+     * @throws LocalizedException
      */
     public function success(string $orderIncrementId, int $transactionId)
     {
         $order = $this->orderFinder->getOrderByOrderIncrementId($orderIncrementId);
-
         if ($order->getStatus() == Order::STATE_PENDING_PAYMENT) {
             $comment = str_replace(
                 self::PLACEHOLDER,
@@ -126,6 +143,8 @@ class StatusUpdater
 
             $this->orderRepository->save($order);
             $this->orderCommentSender->send($order, true, $comment);
+
+            $this->invoiceStatusUpdater->createInvoice($order);
         }
     }
 
